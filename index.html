@@ -37,6 +37,12 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
   var socket = io();
+  socket.on('connection', function () {
+    console.log('I am here');
+  });
+  socket.on('scores', function (data) {
+    console.log('I got a score', data);
+  });
 </script>
 </body>
 </html>
