@@ -1,25 +1,17 @@
 {
   "name": "ng2-pub-quiz",
   "version": "1.0.0",
-  "description": "Angular 2 and node pub quiz demo",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/corinna000/ng2-pub-quiz.git"
-  },
-  "keywords": [
-    "angular2",
-    "quiz",
-    "demo",
-    "prototype"
-  ],
-  "author": "corinna.cohn@gmail.com",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/corinna000/ng2-pub-quiz/issues"
+  "dependencies": {
+    "angular2": "2.0.0-beta.14",
+    "systemjs": "0.19.25",
+    "es6-shim": "^0.35.0",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.2",
+    "zone.js": "0.6.6"
   },
-  "homepage": "https://github.com/corinna000/ng2-pub-quiz#readme"
+  "devDependencies": {
+  }
 }
