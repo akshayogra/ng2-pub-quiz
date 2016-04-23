@@ -24,6 +24,7 @@
   },
   "files": [
     "./app/app.component.ts",
-    "./app/boot.ts"
+    "./app/boot.ts",
+    "./app/game-join.ts"
   ]
 }
