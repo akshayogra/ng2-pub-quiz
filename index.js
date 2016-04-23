@@ -1,27 +1,20 @@
-var connect = require('connect');
-var http = require('http');
-
-
-var app = connect();
-
+var express = require('express');
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 var PORT = 8080;
 
-console.log("running in: " + __dirname);
+app.get('/', function(req, res){
+  res.sendfile('index.html');
+});
 
-// parse urlencoded request bodies into req.body
-// var bodyParser = require('body-parser');
-// app.use(bodyParser.urlencoded());
+app.use('/node_modules', express.static('node_modules'));
+app.use('/app', express.static('app'));
 
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
 
-var serveStatic = require('serve-static')
-// app.use(serveStatic(__dirname + 'node_modules'));
-app.use(serveStatic('.', {'index': ['index.html', 'index.htm']}));
-
-
-// respond to all requests
-// app.use(function(req, res){
-//   res.end('Hello from Connect!\n');
-// });
-
-//create node.js http server and listen on port
-http.createServer(app).listen(PORT);
+http.listen(PORT, function(){
+  console.log('listening on *:'+PORT);
+});
