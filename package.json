@@ -2,6 +2,7 @@
   "name": "ng2-pub-quiz",
   "version": "1.0.0",
   "scripts": {
+    "start": "node index.js"
   },
   "license": "MIT",
   "dependencies": {
@@ -13,5 +14,7 @@
     "zone.js": "0.6.6"
   },
   "devDependencies": {
+    "connect": "^3.4.1",
+    "serve-static": "^1.10.2"
   }
 }
