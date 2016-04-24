@@ -1,6 +1,8 @@
 var state = {
   games: [],
   players: [],
+  questions: [],
+  roundTimer: 0
 };
 
 module.exports = {
