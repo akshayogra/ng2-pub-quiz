@@ -22,7 +22,10 @@ System.register(['angular2/core', './game-join'], function(exports_1, context_1)
             }],
         execute: function() {
             AppComponent = (function () {
-                function AppComponent() {
+                function AppComponent(RxIO) {
+                    this.RxIO = RxIO;
+                    RxIO('gameStart')
+                        .subscribe(function (body) { console.log('gameStart', body); });
                 }
                 AppComponent = __decorate([
                     core_1.Component({
@@ -30,7 +33,7 @@ System.register(['angular2/core', './game-join'], function(exports_1, context_1)
                         template: "\n        <h1>ng-2 Pub Quiz</h1>\n        <div>\n          <game-join></game-join>\n        </div>\n        <p></p>\n    ",
                         directives: [game_join_1.GameJoin]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [Object])
                 ], AppComponent);
                 return AppComponent;
             }());

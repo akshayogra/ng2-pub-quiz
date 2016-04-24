@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {GameJoin} from './game-join';
-
+import RxIO from './RxFromIO';
 
 @Component({
     selector: 'my-app',
@@ -14,5 +14,8 @@ import {GameJoin} from './game-join';
     directives: [GameJoin]
 })
 export class AppComponent {
-
+  constructor(private RxIO) {
+    RxIO('gameStart')
+      .subscribe(body => { console.log('gameStart', body)});
+  }
 }
