@@ -6,7 +6,6 @@ module.exports.listen = function (app, state) {
     res.send(player);
   });
 }
-
 var Player = {
   newPlayer: function (name){
     this.name = name;

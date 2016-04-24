@@ -2,7 +2,7 @@ var state = {
   games: [],
   players: [],
   questions: [],
-  roundTimer: 0,
+  roundTimer: 0
 };
 
 module.exports = {
