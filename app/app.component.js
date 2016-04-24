@@ -1,4 +1,4 @@
-System.register(['angular2/core', './game-join', './RxFromIO'], function(exports_1, context_1) {
+System.register(['angular2/core', './game-join', './game-play', './RxFromIO'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './game-join', './RxFromIO'], function(exports
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, game_join_1, RxFromIO_1;
+    var core_1, game_join_1, game_play_1, RxFromIO_1;
     var AppComponent;
     return {
         setters:[
@@ -20,6 +20,9 @@ System.register(['angular2/core', './game-join', './RxFromIO'], function(exports
             function (game_join_1_1) {
                 game_join_1 = game_join_1_1;
             },
+            function (game_play_1_1) {
+                game_play_1 = game_play_1_1;
+            },
             function (RxFromIO_1_1) {
                 RxFromIO_1 = RxFromIO_1_1;
             }],
@@ -28,23 +31,21 @@ System.register(['angular2/core', './game-join', './RxFromIO'], function(exports
                 function AppComponent(_ngZone) {
                     this._ngZone = _ngZone;
                     this.gameStart$ = RxFromIO_1.default('gameStart');
-                    // gameStart$ = Rx.Observable.of(false).delay(5000);
                     this.waitingForPlayers = true;
-                    RxFromIO_1.default('timeLeftInRound')
-                        .subscribe(function (body) { console.log('timeLeftInRound', body); });
                 }
                 AppComponent.prototype.ngOnInit = function () {
                     var _this = this;
+                    RxFromIO_1.default('timeLeftInRound')
+                        .subscribe(function (body) { console.log('timeLeftInRound', body); });
                     this.gameStart$.subscribe(function (value) {
-                        console.log('got update: ', value);
                         _this._ngZone.run(function () { return _this.waitingForPlayers = false; });
                     });
                 };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n        <h1>ng-2 Pub Quiz</h1>\n        <div *ngIf=\"waitingForPlayers\">\n          <game-join></game-join>\n        </div>\n        <p></p>\n    ",
-                        directives: [game_join_1.GameJoin]
+                        template: "\n        <h1>ng-2 Pub Quiz</h1>\n\n        <!-- display the game join component while waiting for players -->\n        <div *ngIf=\"waitingForPlayers\">\n          <game-join></game-join>\n        </div>\n\n        <!-- display the game screen if we're not waiting for players -->\n        <div *ngIf=\"!waitingForPlayers\">\n          <game-play></game-play>\n        </div>\n        <p></p>\n    ",
+                        directives: [game_join_1.GameJoin, game_play_1.GamePlay]
                     }), 
                     __metadata('design:paramtypes', [core_1.NgZone])
                 ], AppComponent);

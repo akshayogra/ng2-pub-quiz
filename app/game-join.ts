@@ -3,6 +3,8 @@
 import {Component} from 'angular2/core';
 import {Http, HTTP_PROVIDERS} from 'angular2/http';
 import {GameJoinService} from './game-join-service';
+import {PlayerService} from './player-service';
+
 import 'rxjs/add/operator/map';
 
 
@@ -26,9 +28,7 @@ import 'rxjs/add/operator/map';
     viewProviders: [HTTP_PROVIDERS, GameJoinService]
 })
 export class GameJoin {
-  gameSvc: null;
-  constructor(http: Http, gameSvc: GameJoinService) {
-    this.gameSvc = gameSvc;
+  constructor(http: Http, private gameSvc: GameJoinService, private playerSvc: PlayerService) {
     http.get('/games')
       .map(res => res.json())
       .subscribe(games => this.games = games);
@@ -42,6 +42,6 @@ export class GameJoin {
     this.gameSvc
       .joinGame(gameId, name)
       .map(res => res.json())
-      .subscribe()
+      .subscribe(player => this.playerSvc.add(player.id, player.name))
   }
 }
