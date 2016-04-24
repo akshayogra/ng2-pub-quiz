@@ -6,26 +6,39 @@ module.exports.config = function(socket) {
 module.exports.startGame = function (game) {
   console.log('game cycle started');
   io.emit('gameStart', true);
-
-  io.emit('roundStart', game.questions[0]);
-  console.log('roundStart', game.questions[0]);
   //
   // io.emit('roundEnd');
   //
   // io.emit('gameEnd');
+  var restTime = 2000;
+  var numRounds = game.questions.length - 1;
 
-  var roundTimeRemaining = 5000;
-  var secondsRemaining = roundTimeRemaining / 1000;
-  io.emit('timeLeftInRound', secondsRemaining);
-  var round = setInterval(function() {
-    secondsRemaining--;
-    io.emit('timeLeftInRound', secondsRemaining);
-    console.log('secondsRemaining', secondsRemaining)
-    if(secondsRemaining == 0){
-      clearInterval(round);
-      io.emit('roundEnd', true);
-    }
-  }, 1000)
+  startRound(numRounds);
+
+  function startRound(questionIndex) {
+    io.emit('roundStart', game.questions[questionIndex]);
+    console.log('roundStart', game.questions[questionIndex]);
+    var seconds = 7;
+    var round = setInterval(function() {
+      seconds--;
+      io.emit('timeLeftInRound', seconds);
+      console.log('secondsRemaining', seconds);
+      if(seconds == 0) {
+        clearInterval(round);
+        io.emit('roundEnd', true);
+        numRounds--;
+        if(numRounds >= 0 ) {
+          setTimeout(function(){
+            startRound(numRounds);
+          }, restTime);
+        } else {
+          io.emit('gameEnd', game);
+          console.log('gameEnd', game);
+        }
+      }
+    }, 1000);
+  }
+
 
 
 }

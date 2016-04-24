@@ -6,11 +6,13 @@ module.exports.listen = function (app, state) {
     res.send(player);
   });
 }
-
 var Player = {
   newPlayer: function (name){
     this.name = name;
     return this;
+  },
+  addScore: function(addedScore){
+    this.score += addedScore
   },
   score: 0,
 }
