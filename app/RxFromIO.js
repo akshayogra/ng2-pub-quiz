@@ -1,11 +1,11 @@
-System.register(['rxjs'], function(exports_1, context_1) {
+System.register(['rxjs/observable'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var rxjs_1;
+    var observable_1;
     function RxfromIO(eventName) {
-        return rxjs_1.Observable.create(function (observer) {
+        return observable_1.Observable.create(function (observer) {
             io.on(eventName, function (data) {
-                observer.onNext(data);
+                observer.next(data);
             });
             return {
                 dispose: io.close
@@ -15,8 +15,8 @@ System.register(['rxjs'], function(exports_1, context_1) {
     exports_1("default", RxfromIO);
     return {
         setters:[
-            function (rxjs_1_1) {
-                rxjs_1 = rxjs_1_1;
+            function (observable_1_1) {
+                observable_1 = observable_1_1;
             }],
         execute: function() {
         }
