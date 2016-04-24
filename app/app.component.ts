@@ -1,11 +1,17 @@
 import {Component} from 'angular2/core';
+import {GameJoin} from './game-join';
+
 
 @Component({
     selector: 'my-app',
     template: `
-        <h1>Angular 2 Boilerplate</h1>
-        <p>Hello World!</p>
+        <h1>ng-2 Pub Quiz</h1>
+        <div>
+          <game-join></game-join>
+        </div>
+        <p></p>
     `,
+    directives: [GameJoin]
 })
 export class AppComponent {
 
