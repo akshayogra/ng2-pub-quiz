@@ -1,14 +1,18 @@
 
 
 function Quiz(http, app) {
+  var io = require('socket.io')(http);
   var state = require('./state');
   var games = require('./games');
   var players = require('./players');
+  var gameCycle = require('./game-cycle');
 
-  games.intialize(app,state);
+  gameCycle.config(io);
+
+  games.intialize(app,state,gameCycle);
   players.listen(app,state)
 
-  var io = require('socket.io')(http);
+
   io.on('connection', function(socket) {
     console.log('a user connected');
   });
