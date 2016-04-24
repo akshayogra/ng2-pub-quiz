@@ -1,5 +1,6 @@
 <!doctype>
 <html>
+
 <head>
     <base href="/">
     <title>Angular 2 Boilerplate</title>
@@ -19,30 +20,44 @@
 
     <link rel="stylesheet" href="src/css/app.css">
 </head>
-<body>
-<my-app>Loading...</my-app>
 
-<script>
-    System.config({
-        packages: {
-            app: {
-                format: 'register',
-                defaultExtension: 'js'
+<body>
+    <my-app>Loading...</my-app>
+
+    <script>
+        System.config({
+            map: {
+                rxjs: 'node_modules/rxjs' //or wherever you have it installed
+            },
+            packages: {
+                app: {
+                    format: 'register',
+                    defaultExtension: 'js'
+                },
+                rxjs: {
+                    defaultExtension: 'js'
+                }
+
             }
-        }
-    });
-    System.import('app/boot')
+
+        });
+
+
+
+
+        System.import('app/boot')
             .then(null, console.error.bind(console));
-</script>
-<script src="/socket.io/socket.io.js"></script>
-<script>
-  var socket = io();
-  socket.on('connection', function () {
-    console.log('I am here');
-  });
-  socket.on('scores', function (data) {
-    console.log('I got a score', data);
-  });
-</script>
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        socket.on('connection', function() {
+            console.log('I am here');
+        });
+        socket.on('scores', function(data) {
+            console.log('I got a score', data);
+        });
+    </script>
 </body>
+
 </html>

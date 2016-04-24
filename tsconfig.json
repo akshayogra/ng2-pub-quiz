@@ -25,6 +25,9 @@
   "files": [
     "./app/app.component.ts",
     "./app/boot.ts",
-    "./app/game-join.ts"
+    "./app/game-join-service.ts",
+    "./app/game-join.ts",
+    "./app/game-observer.ts",
+    "./app/RxFromIO.ts"
   ]
 }
