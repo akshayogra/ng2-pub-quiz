@@ -12,5 +12,8 @@ var Player = {
     this.name = name;
     return this;
   },
+  addScore: function(addedScore){
+    this.score += addedScore
+  },
   score: 0,
 }

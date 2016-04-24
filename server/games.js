@@ -4,7 +4,7 @@ module.exports.intialize = function (app, state, gameCycle) {
   setTimeout(function(){
     state.db.games[0].start();
     console.log('starting first game');
-  }, 2000);
+  }, 5000);
 
   // This route is for getting a list of games
   app.get('/games', function (req, res) {
@@ -29,24 +29,45 @@ module.exports.intialize = function (app, state, gameCycle) {
   }
 
   var gamesData = [{
-    id: 1,
+  id: 1,
    name: 'Who Wants to Observe a Millionaire',
    questions: [
      {
-       id: 1,
        question: 'How many licks does it take to get to the center of a Tootsie Roll',
        answers: [ 'Two thousand', 'One.. two.. crunch!', 'Egg', 'Zebra' ],
+       rightAnswerIndex: 1
+     },
+     {
+       question: 'What is the meaning of life',
+       answers: [ 'Nick', 'Nick', 'Nick', '42' ],
        rightAnswerIndex: 1
      }
    ]
   }];
 
+  var Question = {
+    newQuestion: function(questionData){
+      this.question = questionData.question;
+      this.answers = questionData.answers;
+      this.rightAnswerIndex = questionData.rightAnswerIndex;
+      return this;
+    },
+    checkAnswer: function(chosenAnswerIndex){
+      return chosenAnswerIndex == this.rightAnswerIndex
+    }
+  };
+
   var Game = {
     newGame: function (gameData){
       this.name = gameData.name;
-      this.questions = gameData.questions;
+      this.questions = gameData.questions.map(function(questionData) {
+        var question = Object.create(Question).newQuestion(questionData);
+        state.add(question).to('questions');
+        return question;
+      });
       this.players = [];
       this.started = false;
+      this.roundSeconds = 10;
       return this;
     },
     start: function() {
