@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', './RxFromIO'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,25 +10,31 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
-    var GameObserver;
+    var core_1, RxFromIO_1;
+    var GamePlayService;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (RxFromIO_1_1) {
+                RxFromIO_1 = RxFromIO_1_1;
             }],
         execute: function() {
-            GameObserver = (function () {
-                function GameObserver() {
+            GamePlayService = (function () {
+                function GamePlayService() {
+                    this.gameStart$ = RxFromIO_1.default('gameStart');
+                    this.gameEnd$ = RxFromIO_1.default('gameEnd');
+                    this.roundStart$ = RxFromIO_1.default('roundStart');
                 }
-                GameObserver = __decorate([
+                GamePlayService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [])
-                ], GameObserver);
-                return GameObserver;
+                ], GamePlayService);
+                return GamePlayService;
             }());
-            exports_1("GameObserver", GameObserver);
+            exports_1("GamePlayService", GamePlayService);
         }
     }
 });
-//# sourceMappingURL=game-observer.js.map
+//# sourceMappingURL=game-play-service.js.map

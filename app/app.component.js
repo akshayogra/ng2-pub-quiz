@@ -44,7 +44,7 @@ System.register(['angular2/core', './game-join', './game-play', './RxFromIO'], f
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n        <h1>ng-2 Pub Quiz</h1>\n\n        <!-- display the game join component while waiting for players -->\n        <div *ngIf=\"waitingForPlayers\">\n          <game-join></game-join>\n        </div>\n\n        <!-- display the game screen if we're not waiting for players -->\n        <div *ngIf=\"!waitingForPlayers\">\n          <game-play></game-play>\n        </div>\n        <p></p>\n    ",
+                        template: "\n        <div class=\"container\">\n          <div class=\"jumbotron\">\n            <h1>ng-2 Pub Quiz</h1>\n          </div>\n\n\n          <!-- display the game join component while waiting for players -->\n          <div *ngIf=\"waitingForPlayers\">\n            <game-join></game-join>\n          </div>\n\n          <!-- display the game screen if we're not waiting for players -->\n          <div *ngIf=\"!waitingForPlayers\">\n            <game-play></game-play>\n          </div>\n        </div>\n    ",
                         directives: [game_join_1.GameJoin, game_play_1.GamePlay]
                     }), 
                     __metadata('design:paramtypes', [core_1.NgZone])

@@ -3,28 +3,27 @@ import {GameJoin} from './game-join';
 import {GamePlay} from './game-play';
 import {PlayerService} from './player-service';
 
-// import {Observable} from 'rxjs/observable';
 import RxfromIO from './RxFromIO';
-// import 'rxjs/add/observable/of';
-import Rx from 'rxjs/Rx';
-
-
 
 @Component({
     selector: 'my-app',
     template: `
-        <h1>ng-2 Pub Quiz</h1>
+        <div class="container">
+          <div class="jumbotron">
+            <h1>ng-2 Pub Quiz</h1>
+          </div>
 
-        <!-- display the game join component while waiting for players -->
-        <div *ngIf="waitingForPlayers">
-          <game-join></game-join>
-        </div>
 
-        <!-- display the game screen if we're not waiting for players -->
-        <div *ngIf="!waitingForPlayers">
-          <game-play></game-play>
+          <!-- display the game join component while waiting for players -->
+          <div *ngIf="waitingForPlayers">
+            <game-join></game-join>
+          </div>
+
+          <!-- display the game screen if we're not waiting for players -->
+          <div *ngIf="!waitingForPlayers">
+            <game-play></game-play>
+          </div>
         </div>
-        <p></p>
     `,
     directives: [GameJoin, GamePlay]
 })

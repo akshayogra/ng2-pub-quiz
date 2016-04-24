@@ -27,7 +27,9 @@
     "./app/boot.ts",
     "./app/game-join-service.ts",
     "./app/game-join.ts",
-    "./app/game-observer.ts",
+    "./app/game-play-service.ts",
+    "./app/game-play.ts",
+    "./app/player-service.ts",
     "./app/RxFromIO.ts"
   ]
 }

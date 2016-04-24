@@ -44,15 +44,14 @@ System.register(['angular2/core', 'angular2/http', './game-join-service', './pla
                 };
                 GameJoin.prototype.join = function (gameId, name) {
                     var _this = this;
-                    this.gameSvc
-                        .joinGame(gameId, name)
-                        .map(function (res) { return res.json(); })
-                        .subscribe(function (player) { return _this.playerSvc.add(player.id, player.name); });
+                    var observable$ = this.gameSvc.joinGame(gameId, name); // returns an Observable
+                    var json$ = observable$.map(function (res) { return res.json(); });
+                    var subscriber = json$.subscribe(function (player) { _this.playerSvc.add(player.id, player.name); }, function (error) { console.log('an error occurred ' + error); }, function () { console.log('All done'); });
                 };
                 GameJoin = __decorate([
                     core_1.Component({
                         selector: 'game-join',
-                        template: "\n      <ul>\n        <li *ngFor=\"#game of games\">\n          <div>\n            ({{game.id}}) {{ game.name }} <a (click)=\"toggle()\">...</a>\n            <br/>\n            <div [hidden]=\"!showmore\">\n            <label for=\"playerName\">name: </label>\n            <input id=\"playerName\" #playerName>\n            <button (click)=\"join(game.id, playerName.value)\">Join</button>\n            </div>\n          </div>\n        </li>\n      </ul>\n    ",
+                        template: "\n      <div class=\"list-group\">\n        <a *ngFor=\"#game of games\" class=\"list-group-item\">\n          <div>\n            <h3 (click)=\"toggle()\">({{game.id}}) {{ game.name }}</h3>\n            <div [hidden]=\"!showmore\">\n            <label for=\"playerName\">name: </label>\n            <input id=\"playerName\" #playerName>\n            <button (click)=\"join(game.id, playerName.value)\">Join</button>\n            </div>\n          </div>\n        </a>\n      </div>\n    ",
                         viewProviders: [http_1.HTTP_PROVIDERS, game_join_service_1.GameJoinService]
                     }), 
                     __metadata('design:paramtypes', [http_1.Http, game_join_service_1.GameJoinService, player_service_1.PlayerService])
