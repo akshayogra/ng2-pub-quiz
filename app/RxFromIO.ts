@@ -1,5 +1,6 @@
 
 import {Observable} from 'rxjs/observable';
+import {NgZone} from 'angular2/core';
 
 declare var io;
 

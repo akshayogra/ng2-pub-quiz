@@ -1,34 +1,36 @@
-import {Component, Input, ChangeDetectionStrategy, ChangeDetectorRef} from 'angular2/core';
+import {Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, NgZone} from 'angular2/core';
 import {GameJoin} from './game-join';
-import {Observable} from 'rxjs/observable';
+// import {Observable} from 'rxjs/observable';
 import RxfromIO from './RxFromIO';
+// import 'rxjs/add/observable/of';
+import Rx from 'rxjs/Rx';
 
-const gameStart$ = RxfromIO('gameStart');
+
 
 @Component({
     selector: 'my-app',
     template: `
         <h1>ng-2 Pub Quiz</h1>
-        <div [hidden]="!waitingForPlayers">
+        <div *ngIf="waitingForPlayers">
           <game-join></game-join>
         </div>
         <p></p>
     `,
-    directives: [GameJoin],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    directives: [GameJoin]
 })
 export class AppComponent {
-  @Input() gameStart$:Observable<any>;
+  gameStart$ = RxfromIO('gameStart');
+  // gameStart$ = Rx.Observable.of(false).delay(5000);
   waitingForPlayers = true;
-  constructor(private cd: ChangeDetectorRef) {
+  constructor(private _ngZone: NgZone) {
     RxfromIO('timeLeftInRound')
       .subscribe(body => { console.log('timeLeftInRound', body)});
   }
   ngOnInit() {
-    this.gameStart$.subscribe((started) => {
-      this.waitingForPlayers = !started;
-      this.cd.markForCheck();
-    });
+    this.gameStart$.subscribe(value => {
+      console.log('got update: ', value);
+      this._ngZone.run(() => this.waitingForPlayers = false);
 
+    })
   }
 }
